@@ -152,6 +152,124 @@ The passing tests should result in the following screen:
 
 Now, let's head over to the `programs` directory and start importing some cool Rust crates provided by Anchor which will help us build our calculator app.
 
-## Writing our first programs
+# Defining our programs
+
+Head over to `programs/mycalculatordapp/src/lib.rs` and clear the code written there apart from the boilerplate code written over there. After clearing, your coding screen should look something like this:
+
+![image](https://user-images.githubusercontent.com/32522659/142734480-8e60e4e7-d2a9-405d-87e9-ebde863875cd.png)
+
+You can also copy paste the below code to get started (assuming that you've also named your project as `mycalculatordapp`)
+```
+use anchor_lang::prelude::*;
+
+declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+
+#[program]
+pub mod mycalculatordapp {
+    use super::*;
+    
+}
+```
+
+Now let us simply define the function signatures that we will require to code up our calculator dapp without writing the logic yet. The bulk of the program goes in a module under the `#[program]` macro. We'll just define them under the `pub mod mycalculatordapp` and write the logic later. These function definitions would look like this:
+
+```
+    pub fn create(ctx:Context<Create>, init_message: String) -> ProgramResult {
+
+    }
+
+    pub fn add(ctx: Context<Addition>, num1: i64, num2: i64) -> ProgramResult {
+
+    }
+
+    pub fn multiply(ctx: Context<Multiplication>, num1: i64, num2: i64) -> ProgramResult {
+
+    }
+
+    pub fn subtract(ctx: Context<Subtraction>, num1: i64, num2: i64) -> ProgramResult {
+
+    }
+
+    pub fn divide(ctx: Context<Division>, num1: i64, num2: i64) -> ProgramResult {
+
+    }
+```
+
+Here `pub` means public and `fn` means function, implying that they are public functions that can be invoked from our program, ie it becomes a client-callable program function. The first argument of these functions is always `Context<T>` which consist of the solana accounts array and the program ID, which in essence is the required data to call just about any progarm on Solana. The next parameter of both the first function is a `String` named init_message, which we will be using as our message that is stored on our calculator (think how you see some text every time you boot up your phone, pc, calculator etc). In the other functions, the `num1` and `num2` parameters are of type integers and are the numbers on which we will be performing our mathematical operations. The `ProgramResult` is the return type of both these functions, which actually is just an easier method to serve function results and/or errors.
+
+After defining the above functions, your code should look something like this:
+
+![image](https://user-images.githubusercontent.com/32522659/142736063-8d8b3f80-c4df-475c-9734-e1426affdc10.png)
+
+# Writing the logic for our first Solana program
+
+Now let's write the logic for the `create` function first, ok? Let's first make our intentions clear for this function and the program in general. We want to keep track of three things here. First is the greeting message that we would be storing in our calculator, the second would be the result of all the mathematical operations and third is the remainder, which will be used in case of division, since Anchor currently does not support floating values. So we would want our calculator account (the main account that will handle all the calculation stuff of the program) to have three fields, namely: `greeting`, `result`, `remainder`. Also, since the same account will be used for the calculations and with different parameteres, we would want the calculator account to be mutable, ie, to be able to persist changes. Write the following code logic inside the `create` function now.
+
+```
+        let calculator = &mut ctx.accounts.calculator;
+        calculator.greeting = init_message;
+        Ok(())
+
+```
+
+The `Ok(())` syntax is used for error handling of the ProgramResult type. You can think of `Ok(())` like a gate, that lets the program continue if there are no errors but sends the program into another state if an error is encountered.  
+
+Now, your coding screen should look something like this: 
+
+![image](https://user-images.githubusercontent.com/32522659/142736026-a0313568-7e60-4601-9d6e-a08bbecb8779.png)
+
+## A small note about accounts on Solana
+An account is not actually a wallet. Instead, it’s a way for the contract to persist data between calls. This includes information such as the count in our base_account, and also information about permissions on the account. Accounts pay rent in the form of lamports, and if it runs out, then the account is purged from the blockchain. Accounts with two years worth of rent attached are “rent-exempt” and can stay on the chain forever.
+
+# Defining the structure of calculator account
+
+In the last sub-quest, we talked about what is our expectation with the calculator account, right? Also, we used the calculator account already in the `create` function. So, now let's go ahead and define what actually our calculator account is. As mentioned earlier, everything on Solana is an account, so we will be using the awesome macros of Anchor to convert a struct into our calculator account. 
+
+Write the code provided below outside of `pub mod mycalculatordapp`.
+```
+#[account]
+pub struct Calculator {
+    pub greeting: String,
+    pub result: i64,
+    pub remainder: i64,
+}
+```
+
+With this, your code screen would look something like this:
+
+![image](https://user-images.githubusercontent.com/32522659/142736006-ddbc11b0-1d98-43a3-928f-2171eb28f347.png)
 
 
+Good, now you are on track to implement actual functionalities of a calculator. Let's see how do we do that.
+
+# First calculation function logic
+
+With the last sub-quest, we are all set to write the logic for our first calculation function. Let's write the logic for addition first. As you might be thinking, here we simply have to save the result of the addition of the two parameters in the `result` field of the calculator account. If you were thinking along that lines, then congratulations, you're right on the money. Write the following code inside of the `add` function
+
+```
+        let calculator = &mut ctx.accounts.calculator;
+        calculator.result = num1 + num2;
+        Ok(())
+
+```
+
+With this, your coding screen would look something like this:
+![image](https://user-images.githubusercontent.com/32522659/142735765-d2513af9-5e5f-4d85-8ed0-c66862f4fbe9.png)
+
+Notice the `Context<Addition`? As discussed earlier, it is the list of accounts that must be passed to this particular function for it to run. What accounts do you think would we require to send to this function to make it work? Yes, correct, we only need to send the calculator account, nothing else xD. So, now with this knowledge, let's define `Addition`, write the following code below with your declaration of the calculator account:
+
+```
+#[derive(Accounts)]
+pub struct Addition<'info> {
+    #[account(mut)]
+    pub calculator: Account<'info, Calculator>,
+}
+```
+
+With this, your coding screen would look something like this:
+
+![image](https://user-images.githubusercontent.com/32522659/142735894-c6eafac8-c69b-4e56-bf18-c01168bbc964.png)
+
+Congratulations.... now you have a Solana blockchain program that is capable of adding two number.... How cool is that, right? Now I want you to take a pause and re-collect whatever you've learnt in the quest uptil now, because the next sub-quest is going to be a challenge sub-quest :D
+
+# Challenge sub-quest
