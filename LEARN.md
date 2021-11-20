@@ -574,5 +574,8 @@ If you get some errors, try debugging those using the error messages you get. Ma
 
 Congratulations on succesfully creating your own calculator on the Solana blockchain and testing its functioning :D 
 
+## Next steps
+Now you've dipped your toes in the ocean of Solana development. To learn more about it, you can try and mess around with the data types that we used in the function declarations and see what effect does that have on the program; you can try to use just one struct in place of the `Addition`, `Multiplication`, `Subtraction` and `Division` struct since they were all similar. You can try to combine all the four calculator functions into one function where the operation is decided using the parameter passed, and apart from this you can experiment with the contents of this quest to your heart's content and then you can move onto the other quests on Solana development.
+
 
 
