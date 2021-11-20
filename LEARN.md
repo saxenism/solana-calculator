@@ -346,3 +346,34 @@ Now, is our program complete? Sadly no, there is one more, last remaining piece 
 
 # Final piece of the puzzle
 
+If you could guess that we had used the `Create` struct in the first `create` function itself but never defined it anywhere like we defined the `Addition`, `Multiplication` etc structs, then, congratulations you were absolutely right.
+
+With this struct, we want to pass three accounts, the first is obviously the calculator account, since it is being used in the function itself. The second account is the user account and the third account is the system_program. What makes this struct a bit more special is that, in this struct we have to give the command to actually create the calculator account (which we have used in the subsequent functions). The creation of this calculator account will cost us some money (SOL) which will be paid by the `user` account that we just mentioned, along with that we have the space parameter where we specify how much space do we require in our account (here, calculator account) and finally the `system_program` is just system specifications for the Solana blockchain, again in the form of an account.
+
+Write the following code to define the `Create` struct:
+
+```
+#[derive(Accounts)]
+pub struct Create<'info> {
+    #[account(init, payer = user, space = 8 + 64 + 64 + 64 + 64)]
+    pub calculator: Account<'info, Calculator>,
+    #[account(mut)]
+    pub user: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+```
+
+As discussed earlier, we used the derive Accounts macro since we had to incorporate 3 accounts here and for all these three accounts individually, we used the account macro. Now onto the arguments used with these macros. The `init` macro is used to create a new account owned by the current program which is our `mycalculatordapp` program. Whenever `init` parameter is used, we must always specify the `payer` or the account that will be paying for creation of the account on the Solana blockchain, along with the `space` param which is the space with which the new account is created.
+
+The `mut` parameter marks an account as mutable, which essentially means our account will be altered and Solana will need to update the data in your account. So, always use the `mut` parameter for persisting changes. 
+
+Another new concept used here is the `Signer` type. This is used to enforce the constraint that the `authority` account (messengerapp in this case) *signed* the transaction. 
+
+With this, your coding screen should look something like this:
+
+![image](https://user-images.githubusercontent.com/32522659/142736771-62624164-35ab-4aa0-b31d-4c5f8dabbaf0.png)
+
+## Further reading:
+You can read up on different types of account constraints [here](https://docs.rs/anchor-lang/0.18.0/anchor_lang/derive.Accounts.html).
+
+# Testing our calculator program
