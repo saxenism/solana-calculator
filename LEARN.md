@@ -273,3 +273,76 @@ With this, your coding screen would look something like this:
 Congratulations.... now you have a Solana blockchain program that is capable of adding two number.... How cool is that, right? Now I want you to take a pause and re-collect whatever you've learnt in the quest uptil now, because the next sub-quest is going to be a challenge sub-quest :D
 
 # Challenge sub-quest
+
+This sub-quest is a challenge for you. Trust me, at this moment, you are perfectly capable to write more Solana code by yourself. Keep in mind how we defined the `add` function and the `Addition` struct in the last quest and with that knowledge, I want you all to write the code for all the remaining functions, that is, `multiply`, `subtract` and `divide` and then declare the corresponding structs, that is `Multiplication`, `Subtraction` and `Division`. 
+
+The only function that will be slightly different would be the `divide` function, so trust in yourself and give this sub-quest your best shot.
+
+# Solution to the challenge sub-quest
+
+I hope that you did your best to try and complete the remaining functions, now you can tally them with the below code.
+
+The code for the `multiply` function is as follows:
+```
+        let calculator = &mut ctx.accounts.calculator;
+        calculator.result = num1 * num2;
+        Ok(())
+```
+
+The `Multiplication` struct would look something like this:
+
+```
+#[derive(Accounts)]
+pub struct Multiplication<'info> {
+    #[account(mut)]
+    pub calculator: Account<'info, Calculator>,
+}
+```
+
+The code for the `subtract` function is as follows:
+```
+        let calculator = & mut ctx.accounts.calculator;
+        calculator.result = num1 - num2;
+        Ok(())
+```
+
+The code for `Subtraction` struct is as follows:
+```
+#[derive(Accounts)]
+pub struct Subtraction<'info> {
+    #[account(mut)]
+    pub calculator: Account<'info, Calculator>,
+}
+```
+
+And finally, the code for the `divide` function is as follows:
+
+```
+        let calculator = &mut ctx.accounts.calculator;
+        calculator.result = num1 / num2;
+        calculator.remainder = num1 % num2;
+        Ok(())
+```
+
+The `Division` struct also looks like this
+
+```
+#[derive(Accounts)]
+pub struct Division<'info> {
+    #[account(mut)]
+    pub calculator: Account<'info, Calculator>,
+}
+```
+
+With all this, your coding screen should look something like this:
+
+![image](https://user-images.githubusercontent.com/32522659/142736456-bbc7f833-a2be-41b1-bc90-234c24d0d5bb.png)
+
+![image](https://user-images.githubusercontent.com/32522659/142736470-3acd524d-d3db-483d-badf-e46963a07107.png)
+
+Did you get them right, or most of them right or even one right? Wasn't this exciting? You're able to write Solana code yourself right off the bat. 
+
+Now, is our program complete? Sadly no, there is one more, last remaining piece of the puzzle that we must address before we can say that we done with the program coding part. Before jumping onto the next sub-quest, try and guess what could we be missing from our program, and yes, you can guess that. It is within your grasp.
+
+# Final piece of the puzzle
+
