@@ -552,8 +552,27 @@ Wasn't this exhilarating? You've only just started with Solana development and n
 
 ![image](https://user-images.githubusercontent.com/32522659/142737709-260d3284-6fe1-4441-8925-f9839d6a8434.png)
 
+![image](https://user-images.githubusercontent.com/32522659/142737716-2f534f82-7cfa-4843-ad25-02b32086d7ea.png)
+
 ![image](https://user-images.githubusercontent.com/32522659/142737719-31b2f671-a448-4a17-8e10-5bfbfcff5d7d.png)
 
-![image](https://user-images.githubusercontent.com/32522659/142737716-2f534f82-7cfa-4843-ad25-02b32086d7ea.png)
+# Running the tests
+
+Now, that we are done running all the tests, make sure that your local validator is not running. That means make sure that the `solana-test-validator` process is not running and the `network` is set as localhost by inspecting the results of `solana config get`. Once all this is done, it is time for us to actually test the progarm that we wrote. To do that use the following command:
+
+```
+anchor test
+```
+
+If all the tests pass, you'll get a screen similar to this:
+
+![image](https://user-images.githubusercontent.com/32522659/142737779-3de3bb2b-9752-4c70-a2d1-8d50377aa708.png)
+
+If you get some errors, try debugging those using the error messages you get. Make sure you have accurately followed the code presented in the quests and you are on the same Anchor version as that followed in the quest (0.17.0). With that you'll find your way out of most of the errors that you might run into.
+
+# Congratulations
+
+Congratulations on succesfully creating your own calculator on the Solana blockchain and testing its functioning :D 
+
 
 
