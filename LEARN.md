@@ -483,3 +483,77 @@ That is all that was required to test the `add` function. With this, your coding
 ![image](https://user-images.githubusercontent.com/32522659/142737483-fff0e04d-3abf-414c-a44d-20b487b38d05.png)
 
 # Challenge sub-quest
+
+As discussed in the previous sub-quest, in this sub-quest you are required to come up with the tests for the `multiply`, `subtract` and `divide` functions by yourself. You can take inspiration from the earlier two tests we wrote and trust me when I say that you can very easily write the tests for these three functions too. All you need to do is make sure that the entire quest uptil this point was clear to you.
+
+All the best.
+
+# Solution to the challenge sub-quest
+
+I hope that you gave your best attempt to the challenge in the last sub-quest and now let's tally what you've written with the tests can be. The values of the parameters (num1 and num2) being passed can change, make sure you are writing your `assert` statements accordingly.
+
+Here's the code for the `multiply` function check:
+
+```
+  it('Multiplies two numbers', async function() {
+    const calculator = _calculator;
+
+    await program.rpc.multiply(new anchor.BN(2), new anchor.BN(3), {
+      accounts: {
+        calculator: calculator.publicKey,
+      },
+    });
+
+    const account = await program.account.calculator.fetch(calculator.publicKey);
+    assert.ok(account.result.eq(new anchor.BN(6)));
+    assert.ok(account.greeting === "Welcome to Solana");
+  })
+
+```
+Here's the code for the `subtract` function check:
+
+```
+  it('Subtracts two numbers', async function() {
+    const calculator = _calculator;
+
+    await program.rpc.subtract(new anchor.BN(32), new anchor.BN(33), {
+      accounts: {
+        calculator: calculator.publicKey,
+      },
+    });
+
+    const account = await program.account.calculator.fetch(calculator.publicKey);
+    assert.ok(account.result.eq(new anchor.BN(-1)));
+    assert.ok(account.greeting === "Welcome to Solana");
+  });
+
+```
+
+Here's the code for the `divide` function check:
+
+```
+  it('Divides two numbers', async function() {
+    const calculator = _calculator;
+
+    await program.rpc.divide(new anchor.BN(10), new anchor.BN(3), {
+      accounts: {
+        calculator: calculator.publicKey,
+      },
+    });
+
+    const account = await program.account.calculator.fetch(calculator.publicKey);
+    assert.ok(account.result.eq(new anchor.BN(3)));
+    assert.ok(account.remainder.eq(new anchor.BN(1)));
+    assert.ok(account.greeting === "Welcome to Solana");
+  });
+```
+
+Wasn't this exhilarating? You've only just started with Solana development and now not only can you just write program functions on your own, you can also write tests to verify their functioning. Isn't this seriously mind-blowing? Anyway, congratulations on this feet and just tally your code with the code snapshot below and after which we move onto actaully running these tests.
+
+![image](https://user-images.githubusercontent.com/32522659/142737709-260d3284-6fe1-4441-8925-f9839d6a8434.png)
+
+![image](https://user-images.githubusercontent.com/32522659/142737719-31b2f671-a448-4a17-8e10-5bfbfcff5d7d.png)
+
+![image](https://user-images.githubusercontent.com/32522659/142737716-2f534f82-7cfa-4843-ad25-02b32086d7ea.png)
+
+
