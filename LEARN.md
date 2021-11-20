@@ -430,3 +430,31 @@ The calculator variable you see is the keypair generated using anchor.web3 that 
 When we have these three things, we can start calling functions in our program, which is what we will be doing in our next sub-quest.
 
 # Writing our first test
+
+The method to call the functions of our program is pretty straight-forward. We will use the program RPCs (Remote procedure calls) to access the function and then we will use the `web3.js` library to create `accounts` which have to be passed as the parameters to those functions. Let's first jump into the code of our first test and see things in action.
+
+```
+  it('Creates a calculator', async () => {
+    await program.rpc.create("Welcome to Solana", {
+      accounts: {
+        calculator: calculator.publicKey,
+        user: provider.wallet.publicKey,
+        systemProgram: SystemProgram.programId,
+      },
+      signers: [calculator]
+    });
+
+    const account = await program.account.calculator.fetch(calculator.publicKey);
+    assert.ok(account.greeting === "Welcome to Solana");
+    _calculator = calculator;
+  });
+```
+Now, what we have done in the code above is simply create a `calculator` account by generating a new account using the `web3` library. Then using the program RPC, we have called the `create` function and to that function we have supplied the required parameters, which were the `calculator`, `user`, `systemProgram` and the `init_message` string.
+
+After this function is run, we simply grabbed hold of the calculator account and checked it's `greeting` field and verify whether it has changed to `Welcome to Solana` or not. After that we save the calculator account in a variable called `_calculator`.
+
+With this, your code screen would look something like this:
+
+![image](https://user-images.githubusercontent.com/32522659/142737192-b30cfe3e-905c-46f7-9cfd-457d7e4f0f05.png)
+
+# Writing our second test
