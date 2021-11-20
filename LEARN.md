@@ -451,10 +451,35 @@ The method to call the functions of our program is pretty straight-forward. We w
 ```
 Now, what we have done in the code above is simply create a `calculator` account by generating a new account using the `web3` library. Then using the program RPC, we have called the `create` function and to that function we have supplied the required parameters, which were the `calculator`, `user`, `systemProgram` and the `init_message` string.
 
-After this function is run, we simply grabbed hold of the calculator account and checked it's `greeting` field and verify whether it has changed to `Welcome to Solana` or not. After that we save the calculator account in a variable called `_calculator`.
+After this function is run, we simply grabbed hold of the calculator account and checked it's `greeting` field and verify whether it has changed to `Welcome to Solana` or not. After that we save the calculator account in a variable called `_calculator` so that it can be referenced later.
 
 With this, your code screen would look something like this:
 
 ![image](https://user-images.githubusercontent.com/32522659/142737192-b30cfe3e-905c-46f7-9cfd-457d7e4f0f05.png)
 
 # Writing our second test
+
+With this second test, we begin testing the calculations of the Solana program that we wrote. Firstly, we will write the test for the correct functioning of the `add` function and then with that as the inspiration, the next sub-quest will be a challenge sub-quest where the learner will write the tests for `multiply`, `subtract` and `divide`. For testing, we cannot directly use numbers and we will therefore have to cast them into Anchor big numbers. Now, write the code below to test the `add` function of our `mycalculatordapp` program.
+
+```
+  it("Adds two numbers", async function() {
+    const calculator = _calculator;
+    
+    await program.rpc.add(new anchor.BN(2), new anchor.BN(3), {
+      accounts: {
+        calculator: calculator.publicKey,
+      },
+    });
+
+    const account = await program.account.calculator.fetch(calculator.publicKey);
+    assert.ok(account.result.eq(new anchor.BN(5)));
+    assert.ok(account.greeting === "Welcome to Solana");
+  });
+```
+It is very similar to the test we wrote in the last sub-quest with the only changes being that we are supplying *2* and *3* as the numbers to be added and passing the list of accounts as per the `Addition` struct which requires only the `calculator` account. After the `add` function is run using the RPC, we fetch the calculator account and check the fields of the calculator account. The `greeting` field should remain unaffected and still be "Welcome to Solana", along with that the result field should now be equal to the sum of 2 and 3, ie, 5. 
+
+That is all that was required to test the `add` function. With this, your coding screen should look like this:
+
+![image](https://user-images.githubusercontent.com/32522659/142737483-fff0e04d-3abf-414c-a44d-20b487b38d05.png)
+
+# Challenge sub-quest
