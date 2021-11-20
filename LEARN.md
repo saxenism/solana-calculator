@@ -377,3 +377,56 @@ With this, your coding screen should look something like this:
 You can read up on different types of account constraints [here](https://docs.rs/anchor-lang/0.18.0/anchor_lang/derive.Accounts.html).
 
 # Testing our calculator program
+
+Head over to `tests/mycalculatordapp.js` and delete everything that's written there. We are going to be writing our tests from scratch. The first step would be to import the necessary libraries and constants. To do that, use the following code:
+
+```
+const assert = require('assert');
+const anchor = require('@project-serum/anchor');
+const { SystemProgram } = anchor.web3;
+```
+
+Now, since we will be using `Mocha` for testing our programs, we will create the skeleton of where we will be putting our tests. So, basically, how Mocha works is that it takes `describe` blocks as testing blocks and within those `describe` blocks there are numerous tests written using the `it` blocks. So, use the following code to create the skeleton:
+
+```
+describe('mycalculatordapp', () => {
+  const provider = anchor.Provider.local();
+  anchor.setProvider(provider);
+
+  const calculator = anchor.web3.Keypair.generate();
+  const program = anchor.workspace.Mycalculatordapp;
+
+  it('Creates a calculator', async () => {
+
+  });
+
+  it("Adds two numbers", async function() {
+
+  });
+
+  it('Multiplies two numbers', async function() {
+
+  })
+
+  it('Subtracts two numbers', async function() {
+
+  });
+
+  it('Divides two numbers', async function() {
+
+  });
+});
+```
+With this, your code screen should look something like this:
+
+![image](https://user-images.githubusercontent.com/32522659/142736973-a4a89e29-9e5f-40c5-82fd-924e2e81d1f7.png)
+
+The additional things that we coded there were the introduction of `provider`. The `provider` is the abstraction of a connection to the Solana network. In the test, the Anchor framework will create the provider for us based on the environment `(anchor.Provider.local())`.
+
+Now, the `program` is an abstraction that combines the Provider, idl, and the programID (which is generated when the program is built) and allows us to call RPC methods against our program.
+
+The calculator variable you see is the keypair generated using anchor.web3 that we will be using to test our program.
+
+When we have these three things, we can start calling functions in our program, which is what we will be doing in our next sub-quest.
+
+# Writing our first test
