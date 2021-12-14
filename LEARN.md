@@ -117,7 +117,7 @@ This should result in something like:
 In this sub-quest all we would do is initialize an Anchor project and see whether everything's there and working fine or not and after move on ahead to make our own changes.
 Head over to your preferred destination for the project using your terminal and then type the following command:
 ```
-anchor init mymoneydapp
+anchor init mycalculatordapp
 
 cd mycalculatordapp
 ``` 
@@ -126,7 +126,7 @@ This would result in a screen somewhat similar to this:
 
 ![image](https://user-images.githubusercontent.com/32522659/142706138-4b093910-3bba-4277-99b4-cedaae0b0dc1.png)
 
-First we check whether we can see the *programs*, *app*, *programs*, *migrations* directory among others or not. If we can, we would head over to *programs/messengerapp/src/lib.rs* to see the default program that Anchor provides us. This is the most basic example possible on Anchor and what's happening here is simply that a user-defined function `Initialize` whenever called would successfully exit the program. That's all, nothing fancy. Now, let's try to compile this program using the following command:
+First we check whether we can see the *programs*, *app*, *programs*, *migrations* directory among others or not. If we can, we would head over to *programs/mycalculatordapp/src/lib.rs* to see the default program that Anchor provides us. This is the most basic example possible on Anchor and what's happening here is simply that a user-defined function `Initialize` whenever called would successfully exit the program. That's all, nothing fancy. Now, let's try to compile this program using the following command:
 
 ```
 anchor build
