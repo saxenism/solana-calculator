@@ -7,7 +7,7 @@ you have a high level of interest and motivation, we should be good to go ahead.
 In this quest, we will be developing a simple calculator on the Solana blockchain. This essentially means that once you are done with this quest, you will be well versed with the basics of development on 
 the Solana blockchain using the Anchor framework and would be much better equipped to take on the other Solana quests.
 
-# Setting up the Environment: 
+## Setting up the Environment: 
 
 There are a few things that we need to get up and running before we move forward in this quest. Before we move forward make sure you've a working NodeJS environment set up. We need rust, Solana, Mocha(a JS testing framework), Anchor and Phantom wallet for this quest.
 To install rust, run
@@ -30,7 +30,7 @@ npm install -g mocha
 Now we'll be installing Anchor.
 If you're on a linux system, run
 ```
-# Only on linux systems
+
 npm i -g @project-serum/anchor-cli
 ```
 
@@ -54,7 +54,7 @@ Ruby, that means yes, you can develop things on vanilla Ruby, but Ruby on Rails 
 Solana development plus much more. It offers a Rust DSL (basically, an easier Rust) to work with along with IDL, CLI and workspace management. Anchor abstracts away a lot of potential security holes
 from a conventional Solana program, takes care of the serialization and deserialization, reduces large boilder-platey code to macros and lot of other good good stuff.
 
-# Running configurations on Solana CLI
+## Running configurations on Solana CLI
 
 The first command you should run on your terminal (assuming Solana CLI was properly installed in the last quest) is:
 
@@ -112,7 +112,7 @@ This should result in something like:
 
 ![image](https://user-images.githubusercontent.com/32522659/142706066-032212f7-5ed2-4f03-b22a-e28a581ad0a3.png)
 
-# Setting up our Anchor project
+## Setting up our Anchor project
 
 In this sub-quest all we would do is initialize an Anchor project and see whether everything's there and working fine or not and after move on ahead to make our own changes.
 Head over to your preferred destination for the project using your terminal and then type the following command:
@@ -152,7 +152,7 @@ The passing tests should result in the following screen:
 
 Now, let's head over to the `programs` directory and start importing some cool Rust crates provided by Anchor which will help us build our calculator app.
 
-# Defining our programs
+## Defining our programs
 
 Head over to `programs/mycalculatordapp/src/lib.rs` and clear the code written there apart from the boilerplate code written over there. After clearing, your coding screen should look something like this:
 
@@ -201,7 +201,7 @@ After defining the above functions, your code should look something like this:
 
 ![image](https://user-images.githubusercontent.com/32522659/142736063-8d8b3f80-c4df-475c-9734-e1426affdc10.png)
 
-# Writing the logic for our first Solana program
+## Writing the logic for our first Solana program
 
 Now let's write the logic for the `create` function first, ok? Let's first make our intentions clear for this function and the program in general. We want to keep track of three things here. First is the greeting message that we would be storing in our calculator, the second would be the result of all the mathematical operations and third is the remainder, which will be used in case of division, since Anchor currently does not support floating values. So we would want our calculator account (the main account that will handle all the calculation stuff of the program) to have three fields, namely: `greeting`, `result`, `remainder`. Also, since the same account will be used for the calculations and with different parameteres, we would want the calculator account to be mutable, ie, to be able to persist changes. Write the following code logic inside the `create` function now.
 
@@ -221,7 +221,7 @@ Now, your coding screen should look something like this:
 ## A small note about accounts on Solana
 An account is not actually a wallet. Instead, it’s a way for the contract to persist data between calls. This includes information such as the count in our base_account, and also information about permissions on the account. Accounts pay rent in the form of lamports, and if it runs out, then the account is purged from the blockchain. Accounts with two years worth of rent attached are “rent-exempt” and can stay on the chain forever.
 
-# Defining the structure of calculator account
+## Defining the structure of calculator account
 
 In the last sub-quest, we talked about what is our expectation with the calculator account, right? Also, we used the calculator account already in the `create` function. So, now let's go ahead and define what actually our calculator account is. As mentioned earlier, everything on Solana is an account, so we will be using the awesome macros of Anchor to convert a struct into our calculator account. 
 
@@ -242,7 +242,7 @@ With this, your code screen would look something like this:
 
 Good, now you are on track to implement actual functionalities of a calculator. Let's see how do we do that.
 
-# First calculation function logic
+## First calculation function logic
 
 With the last sub-quest, we are all set to write the logic for our first calculation function. Let's write the logic for addition first. As you might be thinking, here we simply have to save the result of the addition of the two parameters in the `result` field of the calculator account. If you were thinking along that lines, then congratulations, you're right on the money. Write the following code inside of the `add` function
 
@@ -272,13 +272,13 @@ With this, your coding screen would look something like this:
 
 Congratulations.... now you have a Solana blockchain program that is capable of adding two number.... How cool is that, right? Now I want you to take a pause and re-collect whatever you've learnt in the quest uptil now, because the next sub-quest is going to be a challenge sub-quest :D
 
-# Challenge sub-quest
+## Challenge sub-quest
 
 This sub-quest is a challenge for you. Trust me, at this moment, you are perfectly capable to write more Solana code by yourself. Keep in mind how we defined the `add` function and the `Addition` struct in the last quest and with that knowledge, I want you all to write the code for all the remaining functions, that is, `multiply`, `subtract` and `divide` and then declare the corresponding structs, that is `Multiplication`, `Subtraction` and `Division`. 
 
 The only function that will be slightly different would be the `divide` function, so trust in yourself and give this sub-quest your best shot.
 
-# Solution to the challenge sub-quest
+## Solution to the challenge sub-quest
 
 I hope that you did your best to try and complete the remaining functions, now you can tally them with the below code.
 
@@ -344,7 +344,7 @@ Did you get them right, or most of them right or even one right? Wasn't this exc
 
 Now, is our program complete? Sadly no, there is one more, last remaining piece of the puzzle that we must address before we can say that we done with the program coding part. Before jumping onto the next sub-quest, try and guess what could we be missing from our program, and yes, you can guess that. It is within your grasp.
 
-# Final piece of the puzzle
+## Final piece of the puzzle
 
 If you could guess that we had used the `Create` struct in the first `create` function itself but never defined it anywhere like we defined the `Addition`, `Multiplication` etc structs, then, congratulations you were absolutely right.
 
@@ -376,7 +376,7 @@ With this, your coding screen should look something like this:
 ## Further reading:
 You can read up on different types of account constraints [here](https://docs.rs/anchor-lang/0.18.0/anchor_lang/derive.Accounts.html).
 
-# Testing our calculator program
+## Testing our calculator program
 
 Head over to `tests/mycalculatordapp.js` and delete everything that's written there. We are going to be writing our tests from scratch. The first step would be to import the necessary libraries and constants. To do that, use the following code:
 
@@ -429,7 +429,7 @@ The calculator variable you see is the keypair generated using anchor.web3 that 
 
 When we have these three things, we can start calling functions in our program, which is what we will be doing in our next sub-quest.
 
-# Writing our first test
+## Writing our first test
 
 The method to call the functions of our program is pretty straight-forward. We will use the program RPCs (Remote procedure calls) to access the function and then we will use the `web3.js` library to create `accounts` which have to be passed as the parameters to those functions. Let's first jump into the code of our first test and see things in action.
 
@@ -457,7 +457,7 @@ With this, your code screen would look something like this:
 
 ![image](https://user-images.githubusercontent.com/32522659/142737192-b30cfe3e-905c-46f7-9cfd-457d7e4f0f05.png)
 
-# Writing our second test
+## Writing our second test
 
 With this second test, we begin testing the calculations of the Solana program that we wrote. Firstly, we will write the test for the correct functioning of the `add` function and then with that as the inspiration, the next sub-quest will be a challenge sub-quest where the learner will write the tests for `multiply`, `subtract` and `divide`. For testing, we cannot directly use numbers and we will therefore have to cast them into Anchor big numbers. Now, write the code below to test the `add` function of our `mycalculatordapp` program.
 
@@ -482,13 +482,13 @@ That is all that was required to test the `add` function. With this, your coding
 
 ![image](https://user-images.githubusercontent.com/32522659/142737483-fff0e04d-3abf-414c-a44d-20b487b38d05.png)
 
-# Challenge sub-quest
+## Challenge sub-quest
 
 As discussed in the previous sub-quest, in this sub-quest you are required to come up with the tests for the `multiply`, `subtract` and `divide` functions by yourself. You can take inspiration from the earlier two tests we wrote and trust me when I say that you can very easily write the tests for these three functions too. All you need to do is make sure that the entire quest uptil this point was clear to you.
 
 All the best.
 
-# Solution to the challenge sub-quest
+## Solution to the challenge sub-quest
 
 I hope that you gave your best attempt to the challenge in the last sub-quest and now let's tally what you've written with the tests can be. The values of the parameters (num1 and num2) being passed can change, make sure you are writing your `assert` statements accordingly.
 
@@ -556,7 +556,7 @@ Wasn't this exhilarating? You've only just started with Solana development and n
 
 ![image](https://user-images.githubusercontent.com/32522659/142737719-31b2f671-a448-4a17-8e10-5bfbfcff5d7d.png)
 
-# Running the tests
+## Running the tests
 
 Now, that we are done running all the tests, make sure that your local validator is not running. That means make sure that the `solana-test-validator` process is not running and the `network` is set as localhost by inspecting the results of `solana config get`. Once all this is done, it is time for us to actually test the progarm that we wrote. To do that use the following command:
 
@@ -570,7 +570,7 @@ If all the tests pass, you'll get a screen similar to this:
 
 If you get some errors, try debugging those using the error messages you get. Make sure you have accurately followed the code presented in the quests and you are on the same Anchor version as that followed in the quest (0.17.0). With that you'll find your way out of most of the errors that you might run into.
 
-# Congratulations
+## Congratulations
 
 Congratulations on succesfully creating your own calculator on the Solana blockchain and testing its functioning :D 
 
