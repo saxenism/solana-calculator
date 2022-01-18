@@ -21,12 +21,9 @@ describe('mycalculatordapp', () => {
 
     const account = await program.account.calculator.fetch(calculator.publicKey);
     assert.ok(account.greeting === "Welcome to Solana");
-    _calculator = calculator;
   });
 
   it("Adds two numbers", async function() {
-    const calculator = _calculator;
-    
     await program.rpc.add(new anchor.BN(2), new anchor.BN(3), {
       accounts: {
         calculator: calculator.publicKey,
@@ -39,8 +36,6 @@ describe('mycalculatordapp', () => {
   });
 
   it('Multiplies two numbers', async function() {
-    const calculator = _calculator;
-
     await program.rpc.multiply(new anchor.BN(2), new anchor.BN(3), {
       accounts: {
         calculator: calculator.publicKey,
@@ -53,8 +48,6 @@ describe('mycalculatordapp', () => {
   })
 
   it('Subtracts two numbers', async function() {
-    const calculator = _calculator;
-
     await program.rpc.subtract(new anchor.BN(32), new anchor.BN(33), {
       accounts: {
         calculator: calculator.publicKey,
@@ -67,8 +60,6 @@ describe('mycalculatordapp', () => {
   });
 
   it('Divides two numbers', async function() {
-    const calculator = _calculator;
-
     await program.rpc.divide(new anchor.BN(10), new anchor.BN(3), {
       accounts: {
         calculator: calculator.publicKey,
