@@ -131,6 +131,8 @@ First we check whether we can see the *programs*, *app*, *programs*, *migrations
 ```
 anchor build
 ```
+if you get an error `consider adding cargo-features = ["edition2021"] to the manifest` then update solana:  
+`solana-install update`
 
 This would trigger a build function and would something like this upon completion:
 
