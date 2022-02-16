@@ -382,8 +382,8 @@ You can read up on different types of account constraints [here](https://docs.rs
 Head over to `tests/mycalculatordapp.js` and delete everything that's written there. We are going to be writing our tests from scratch. The first step would be to import the necessary libraries and constants. To do that, use the following code:
 
 ```
-const assert = require('assert');
-const anchor = require('@project-serum/anchor');
+import * as assert from 'assert';
+import * as anchor from '@project-serum/anchor';
 const { SystemProgram } = anchor.web3;
 ```
 
