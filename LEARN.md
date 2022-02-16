@@ -239,8 +239,7 @@ pub struct Calculator {
 
 With this, your code screen would look something like this:
 
-![image](https://user-images.githubusercontent.com/32522659/142736006-ddbc11b0-1d98-43a3-928f-2171eb28f347.png)
-
+![image](https://user-images.githubusercontent.com/91323932/154259184-8ce0ae72-5e05-42cf-9f84-5dcedb78b1c2.png)
 
 Good, now you are on track to implement actual functionalities of a calculator. Let's see how do we do that.
 
