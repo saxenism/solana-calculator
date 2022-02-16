@@ -83,15 +83,6 @@ This would result into something like this:
 
 ![image](https://user-images.githubusercontent.com/32522659/142705948-017553ae-593e-4c2f-ae75-b12d0ab7e9a2.png)
 
-Then, for more comprehensive details of your account, use the following command with the address that you got from the last command
-```
-solana account <your address from the last command>
-```
-
-This would result into something like this:
-
-![image](https://user-images.githubusercontent.com/32522659/142706018-f78f61c9-e22e-43a4-8ff6-da8d9e344606.png)
-
 Next, we want to spin up our local network. Think of this local network as a mock Solana blockchain running on your own single system. This network would be required for development and testing of our program. To spin it up, in a separate tab, use the following command:
 ```
 solana-test-validator
@@ -100,6 +91,15 @@ solana-test-validator
 Once you get an image, like the one below, you know that your local validator (local network) is now up and running
 
 ![image](https://user-images.githubusercontent.com/32522659/142706030-6c3ad079-f69c-4be7-9221-a476c11cc1d0.png)
+
+Then, for more comprehensive details of your account, use the following command with the address that you got from the last command
+```
+solana account <your address from the last command>
+```
+
+This would result into something like this:
+
+![image](https://user-images.githubusercontent.com/32522659/142706018-f78f61c9-e22e-43a4-8ff6-da8d9e344606.png)
 
 
 Now, our last task is to top up our account with some SOL, which you can do by using:
