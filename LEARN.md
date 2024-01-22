@@ -52,7 +52,7 @@ Since Solana is still a pretty new blockchain compared to the establised ones ou
 and it does so on a daily basis. At the forefront of this development is Anchor, by [Armani Ferrante](https://twitter.com/armaniferrante). You can think of it like the Ruby on Rails framework for
 Ruby, that means yes, you can develop things on vanilla Ruby, but Ruby on Rails makes your life much much easier, right? That's the same with Anchor and Solana development. Anchor is the Hardhat of 
 Solana development plus much more. It offers a Rust DSL (basically, an easier Rust) to work with along with IDL, CLI and workspace management. Anchor abstracts away a lot of potential security holes
-from a conventional Solana program, takes care of the serialization and deserialization, reduces large boilder-platey code to macros and lot of other good good stuff.
+from a conventional Solana program, takes care of the serialization and deserialization, reduces large boiler-platey code to macros and lot of other good good stuff.
 
 ## Running configurations on Solana CLI
 
